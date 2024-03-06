@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { ForgotPasswordContainer, Input, Button, ErrorText, ForgotTitle, ForgotForm, CancelButton } from './ForgotPassword.styles';
-import { forgotPassword } from '../../utils/api';
 
 const ForgotPassword: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
-  const [message, setMessage] = useState<string | null>(null);
 
   const goBack = () => {
     history.back();
@@ -25,7 +23,7 @@ const ForgotPassword: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     validate();
-    const response =  await forgotPassword(email);
+    //const response =  await forgotPassword(email);
   };
 
   return (
@@ -40,7 +38,7 @@ const ForgotPassword: React.FC = () => {
           required
         />
         {error && <ErrorText>{error}</ErrorText>}
-        {message && <div>{message}</div>}
+        {/* {message && <div>{message}</div>} */}
         <Button type="submit">Send</Button>
       </ForgotForm>
       <CancelButton cancel onClick={goBack}>Cancel</CancelButton>

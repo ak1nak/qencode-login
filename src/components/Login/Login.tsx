@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import { LoginContainer, LoginInput, LoginButton, LoginErrorText, LoginTitle, LoginButtons, Divider, GitButton, LoginForm, Forgot, SignUp, SignUpRow } from './Login.styles';
 import { CredentialResponse, GoogleLogin } from '@react-oauth/google';
 import PasswordInput from '../shared/PasswordInput';
-import { AuthContextType, AuthState } from '../../context/AuthContext';
+import {  AuthState , useAuth} from '../../context/AuthContext';
 
 interface LoginProps {
   onLogin: (email: string, password: string) => Promise<AuthState>;
 }
 
-const Login: React.FC<LoginProps&AuthContextType> = ({ onLogin, setAuth }) => {
+const Login: React.FC<LoginProps> = ({ onLogin }) => {
+  const {setAuth} = useAuth();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string | null>(null);

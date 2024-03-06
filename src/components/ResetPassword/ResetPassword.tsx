@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
 import { ResetPasswordContainer, Button, ErrorText, ResetForm, ResetTitle } from './ResetPassword.styles';
 import PasswordInput from '../shared/PasswordInput';
+import { useAuth } from '../../context/AuthContext';
 
 interface ResetPasswordProps {
   onResetPassword: (token: string, password: string, secret:string, password_confirm:string) => void;
 }
 
-const ResetPassword: React.FC<ResetPasswordProps> = ({ onResetPassword }) => {
+const ResetPassword: React.FC<ResetPasswordProps> = ({ onResetPassword, }) => {
+  const {auth} = useAuth();
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+
     e.preventDefault();
     // Add validation logic here
     if (password !== confirmPassword) {
@@ -19,7 +22,7 @@ const ResetPassword: React.FC<ResetPasswordProps> = ({ onResetPassword }) => {
       return;
     }
     // Perform password reset via API
-    //onResetPassword(password, confirmPassword);
+    auth.accessToken && onResetPassword(password, confirmPassword, auth.accessToken, 'secret');
   };
 
   return (
